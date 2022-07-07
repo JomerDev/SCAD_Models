@@ -1,51 +1,101 @@
-//import("MinifitMount.stl", convexity=3);
-// import("pwm_fan_controller.stl");
+use <MinifitPanelHoles.scad>
 
-// translate([88,17.4,5.2]) cube([2,10.2,6],false);
-// translate([88,19.6,2.8]) cube([2,5.75,10.8],false);
-// translate([88,27.6,6.15]) cube([2,1.45,4.1],false);
-
-module select_panel_hole(pins="10", depth=2) {
-    if(pins == "2") { 
-        panel_hole(width=5.8,height=10,depth=depth);
-    } else if(pins == "4") {
-        panel_hole(width=10,height=10,depth=depth);
-    } else if(pins == "6") {
-        panel_hole(width=14.2,height=10,depth=depth);
-    } else if(pins == "8") {
-        panel_hole(width=18.4,height=10,depth=depth);
-    } else if(pins == "10") {
-        panel_hole(width=22.6,height=10,depth=depth);
-    } else if(pins == "12") {
-        panel_hole(width=26.8,height=10,depth=depth);
-    } else if(pins == "14") {
-        panel_hole(width=31.1,height=10,depth=depth);
-    } else if(pins == "16") {
-        panel_hole(width=35.3,height=10,depth=depth);
-    } else if(pins == "18") {
-        panel_hole(width=39.5,height=10,depth=depth);
-    } else if(pins == "20") {
-        panel_hole(width=43.7,height=10,depth=depth);
-    } else if(pins == "22") {
-        panel_hole(width=47.9,height=10,depth=depth);
-    } else if(pins == "24") {
-        panel_hole(width=52.1,height=10,depth=depth);
-    } 
+module triangle(l, w, h) {
+    polyhedron(
+        points=[[0,0,0], [l,0,0], [l,w,0], [0,w,0], [0,w,h], [l,w,h]],
+        faces=[[0,1,2,3],[5,4,3,2],[0,4,5,1],[0,3,4],[5,2,1]]
+    );
 }
 
-module panel_hole(width=10,height=10, depth=2) {
-    panel_hook_width = width + 5;
-    panel_hook_height = 5.6;
+module MolexSideMount(pins_per_row=5, rows=2) {
+    molex_width = molex_full_width(pins_per_row);
+    molex_height = molex_full_height(rows);
+    height = molex_height + 3 + 2.4;
 
-    hook_width = 4;
-    hook_height = height + 1.6;
+    difference() {
+        cube([15,3,15],false);
+        translate([7,3,8]) rotate([90,0,0]) cylinder(3,d=4,$fn=180,true);
+        translate([0,0,8]) rotate([90,0,90]) triangle(3,7,7);
+    }
+    
+    translate([15,20,3]) rotate(180) triangle(3,height,12);
+    translate([12,20,3]) rotate([0,90,180]) triangle(3,height,12);
 
-    translate([-(height/2),-(width/2),-(depth/2)]) cube([height,width,depth],false);
-    translate([-(panel_hook_height/2),-(panel_hook_width/2),-(depth/2)]) cube([panel_hook_height,panel_hook_width,depth],false);
-    translate([-(height/2),-(hook_width/2),-(depth/2)]) cube([hook_height,hook_width,depth],false);
+    translate([15+molex_width,0,0]) difference() {
+        cube([15,3,15],false);
+        translate([8,3,8]) rotate([90,0,0]) cylinder(3,d=4,$fn=180,true);
+        translate([8,0,15]) rotate([180,0,90]) triangle(3,7,7);
+    }
+    translate([15+molex_width+3,20,3]) rotate(180) triangle(3,height,12);
+    translate([13+molex_width+height,3,3]) rotate([0,90,90]) triangle(3,12,height);
+
+    width = molex_full_width(pins_per_row);
+    panel_hook_height = molex_panel_hook_height();
+    difference() {
+        translate([12,0,0]) cube([molex_width + 6,height + 3,3],false);
+        
+        translate([15+molex_width/2,height-1-(molex_height)/2,1.5]) rotate(90) cube([panel_hook_height, width, 3], true);
+        translate([15+molex_width/2,height-1-(molex_height)/2,1.5]) rotate(90) minifit_panel_hole(pins_per_row, rows, 3);
+    }
+    difference() {
+        translate([15+molex_width/2,height-1-(molex_height)/2,2]) rotate(90) cube([panel_hook_height, width, 2], true);
+        width_with_hooks = molex_width_with_hooks(pins_per_row);
+        translate([15+molex_width/2,height-1-(molex_height)/2,2]) rotate(90) cube([panel_hook_height, width_with_hooks, 2], true);
+    }
+
+    if(pins_per_row > 4) {
+        triangle_width = (width-6)/2;
+        translate([15+triangle_width,0,3]) rotate([0,0,90]) triangle(3,triangle_width,6);
+        translate([15+width-triangle_width,3,3]) rotate([0,0,-90]) triangle(3,triangle_width,6);
+    }
 }
 
-difference() {
-    cube([20,60,2],true);
-    select_panel_hole(pins="2");
+module MolexBottomMount(pins_per_row=5, rows=2, height_to_bottom = 0) {
+    molex_width = molex_full_width(pins_per_row);
+    molex_height = molex_full_height(rows);
+    height = molex_height + 2.4 + 3;
+    height_to_bottom = 14 + height_to_bottom - 3;
+
+    module holder() { 
+        difference() {
+            cube([15,18,3],false);
+            translate([5,9,0]) rotate([0,0,0]) cylinder(3,d=4,$fn=180,true);
+        }
+        translate([12,0,0]) cube([3,18,height_to_bottom], false);
+        translate([12,0,height_to_bottom+3]) rotate([-90,0,90]) triangle(3,height_to_bottom,12);
+        translate([12,15,height_to_bottom+3]) rotate([-90,0,90]) triangle(3,height_to_bottom,12);
+        translate([0,0,3]) rotate([90,90,0]) triangle(3,12,12);
+        translate([12,30,3]) rotate([180,90,0]) triangle(3,12,12);
+        translate([12,-12,0]) cube([3,42,3],false);
+        translate([12,-12,3]) rotate([0,0,0]) triangle(3,12,12);
+        translate([15,30,3]) rotate([0,0,180]) triangle(3,12,12);
+    }
+
+    holder();
+    translate([30 + molex_width,0,0]) mirror([10,0,0]) holder();
+
+    panel_hook_height = molex_panel_hook_height();
+    difference() {
+        translate([12,0,height_to_bottom]) cube([molex_width + 6,height + 1,3],false);
+        
+        rotate(90) translate([height/2, -15-molex_width/2,height_to_bottom + 1.5]) cube([panel_hook_height, molex_width, 3], true);
+        translate([15+molex_width/2,height/2,height_to_bottom + 1.5]) rotate(90) minifit_panel_hole(pins_per_row, rows, 3);
+    }
+    difference() {
+        translate([15+molex_width/2,height/2,height_to_bottom + 1]) rotate(90) cube([panel_hook_height, molex_width, 2], true);
+        width_with_hooks = molex_width_with_hooks(pins_per_row);
+        translate([15+molex_width/2,height/2,height_to_bottom + 1]) rotate(90) cube([panel_hook_height, width_with_hooks, 2], true);
+    }
+
+    if(pins_per_row > 4) {
+        triangle_width = (molex_width-6)/2;
+        translate([15+triangle_width,3,height_to_bottom]) rotate([0,180,90]) triangle(3,triangle_width,6);
+        translate([15+molex_width-triangle_width,0,height_to_bottom]) rotate([0,180,-90]) triangle(3,triangle_width,6);
+
+        translate([15+triangle_width,height+1,height_to_bottom]) rotate([0,180,90]) triangle(3,triangle_width,6);
+        translate([15+molex_width-triangle_width,height-2,height_to_bottom]) rotate([0,180,-90]) triangle(3,triangle_width,6);
+    }
 }
+
+// MolexSideMount(pins_per_row=12, rows=2);
+MolexBottomMount(pins_per_row=12, rows=2, height_to_bottom=15);
