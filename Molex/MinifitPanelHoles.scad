@@ -8,7 +8,7 @@ function molex_full_height(rows) = molex_height(rows) + 1.6;
 
 function molex_width_with_hooks(pins_per_row) = molex_width(pins_per_row) + 6;
 
-function molex_panel_hook_height(rows) = 5.6;
+function molex_panel_hook_depth(rows) = 5.6;
 
 // module minifit_panel_hole(pins="10", depth=2) {
 //     if(pins == "2") { 
@@ -39,7 +39,7 @@ function molex_panel_hook_height(rows) = 5.6;
 // }
 
 
-panel_hook_height = molex_panel_hook_height();
+panel_hook_depth = molex_panel_hook_depth();
 
 module minifit_panel_hole(pins_per_row=5, rows=2, depth=2) {
     width = molex_width(pins_per_row);
@@ -51,13 +51,13 @@ module minifit_panel_hole(pins_per_row=5, rows=2, depth=2) {
     hook_height = height + 1.6;
 
     translate([-(height/2),-(width/2),-(depth/2)]) cube([height,width,depth],false);
-    translate([-(panel_hook_height/2),-(panel_hook_width/2),-(depth/2)]) cube([panel_hook_height,panel_hook_width,depth],false);
+    translate([-(panel_hook_depth/2),-(panel_hook_width/2),-(depth/2)]) cube([panel_hook_depth,panel_hook_width,depth],false);
     translate([-(height/2),-(hook_width/2),-(depth/2)]) cube([hook_height,hook_width,depth],false);
 }
 
 module minifit_panel_hole_sides(pins_per_row=5, rows=2, depth=2) {
     width = molex_full_width(pins_per_row);
-    cube([panel_hook_height, width, 2], true);
+    cube([panel_hook_depth, width, 2], true);
 }
 
 // 4,2 width plus per extra pin
