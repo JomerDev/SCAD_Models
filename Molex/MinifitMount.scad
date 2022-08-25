@@ -35,7 +35,7 @@ module MolexBottomMount(pins_per_row=5, rows=2, height_to_bottom = 0) {
     molex_width = molex_full_width(pins_per_row);
     molex_depth = molex_full_height(rows);
     depth = molex_depth + 2.4 + 3 + 4;
-    height_to_bottom = 14 + height_to_bottom;
+    height_to_bottom = 15 + height_to_bottom;
 
     module holder() { 
         difference() {
@@ -45,11 +45,11 @@ module MolexBottomMount(pins_per_row=5, rows=2, height_to_bottom = 0) {
         translate([12,0,0]) cube([3,depth,height_to_bottom], false);
         translate([12,0,height_to_bottom]) rotate([-90,0,90]) triangle(3,height_to_bottom - 3,12);
         translate([12,depth - 3,height_to_bottom]) rotate([-90,0,90]) triangle(3,height_to_bottom - 3,12);
-        translate([0,0,3]) rotate([90,90,0]) triangle(3,12,12);
-        translate([12,12 + depth,3]) rotate([180,90,0]) triangle(3,12,12);
-        translate([12,-12,0]) cube([3,depth + 24,3],false);
-        translate([12,-12,3]) rotate([0,0,0]) triangle(3,12,12);
-        translate([15,12 + depth,3]) rotate([0,0,180]) triangle(3,12,12);
+        translate([0,0,2]) rotate([90,90,0]) triangle(2,13,12);
+        translate([13,12 + depth,2]) rotate([180,90,0]) triangle(2,12,13);
+        translate([13,-12,0]) cube([2,depth + 24,2],false);
+        translate([13,-12,2]) rotate([0,0,0]) triangle(2,12,13);
+        translate([15,12 + depth,2]) rotate([0,0,180]) triangle(2,12,13);
     }
 
     difference() {
@@ -102,6 +102,7 @@ module MolexMountHolder(pins_per_row=5, rows=2) {
     rotate(180) translate([cube_width/2 - 1.5,0,0]) MolexMountHolderParts(rows);
 }
 
-// MolexSideMount(rows=2);
-MolexBottomMount(pins_per_row=12, rows=2, height_to_bottom=15);
-translate([-40,0,0]) MolexMountHolder(pins_per_row=1, rows=2);
+// MolexSideMount(rows=1);
+MolexBottomMount(pins_per_row=12, rows=2, height_to_bottom=20);
+// translate([-40,0,0]) MolexMountHolder(pins_per_row=1, rows=2);
+// MolexMountHolder(pins_per_row=3, rows=1);
