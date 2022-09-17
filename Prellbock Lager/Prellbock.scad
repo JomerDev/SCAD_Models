@@ -7,14 +7,15 @@ module triangle(l, w, h) {
 
 
 difference() {
-    translate([0,-3,0]) cube([5,16.5+6,1.5],false);
-    translate([2.5,16.5/2,0]) rotate([0,0,0]) cylinder(2,d=1,$fn=180,true);
+    translate([0,-3,0]) cube([5,16.5+6,2],false);
+    translate([2.5,16.5/2,0]) cylinder(2,d=1.5,$fn=180,true);
+    translate([2.5,16.5/2,1.5]) cylinder(0.5,d=3,$fn=180,true);
 }
 translate([0,0,-1.5]) cube([5,2,1.5],false);
 translate([0,16.5-2,-1.5]) cube([5,2,1.5],false);
 
-translate([5,-3,1.5]) rotate(90) triangle(2,4,13.5);
-translate([0,-3,1.5]) cube([1,2,13.5],false);
+translate([5,-3,2]) rotate(90) triangle(2,4,13.5);
+translate([0,-3,2]) cube([1,2,13.5],false);
 
-translate([5,16.5+1,1.5]) rotate(90) triangle(2,4,13.5);
-translate([0,16.5+1,1.5]) cube([1,2,13.5],false);
+translate([5,16.5+1,2]) rotate(90) triangle(2,4,13.5);
+translate([0,16.5+1,2]) cube([1,2,13.5],false);
