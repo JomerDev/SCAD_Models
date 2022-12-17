@@ -102,7 +102,25 @@ module MolexMountHolder(pins_per_row=5, rows=2) {
     rotate(180) translate([cube_width/2 - 1.5,0,0]) MolexMountHolderParts(rows);
 }
 
-// MolexSideMount(rows=1);
-MolexBottomMount(pins_per_row=12, rows=2, height_to_bottom=20);
+module mirrored() {
+    translate([-16,1,0]) MolexSideMount(rows=2);
+    mirror([1,0,0]) translate([-16,1,0]) MolexSideMount(rows=2);
+    mirror([0,1,0]) translate([-16,1,0]) MolexSideMount(rows=2);
+    mirror([1,0,0]) mirror([0,1,0]) translate([-16,1,0]) MolexSideMount(rows=2);
+}
+
+// translate([20,-15,0]) for (x =[0:42:170]) {
+//     translate([20,0,0]) MolexMountHolder(pins_per_row=12, rows=2);
+//     translate([91,0,0]) MolexMountHolder(pins_per_row=12, rows=2);
+//     translate([91+71,0,0]) MolexMountHolder(pins_per_row=12, rows=2);
+//     translate([16,-22,0]) MolexMountHolder(pins_per_row=10, rows=2);
+//     translate([16,-22,0]) MolexMountHolder(pins_per_row=10, rows=2);
+//     translate([16,-22,0]) MolexMountHolder(pins_per_row=10, rows=2);
+// }
+// mirrored();
+// translate([21,-30,0]) mirrored();
+// translate([0,-60,0]) mirrored();
+
+// MolexBottomMount(pins_per_row=12, rows=2, height_to_bottom=20);
 // translate([-40,0,0]) MolexMountHolder(pins_per_row=1, rows=2);
-// MolexMountHolder(pins_per_row=3, rows=1);
+MolexMountHolder(pins_per_row=12, rows=2);
