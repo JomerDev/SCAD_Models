@@ -68,8 +68,8 @@ module MolexMountHolderParts(rows=2) {
     translate([0,cube_depth/2 - 1.5,3.5]) cube([3,3,4],true);
     translate([0,-cube_depth/2 + 1.5,3.5]) cube([3,3,4],true);
 
-    rotate([0,90,0]) translate([-4, -cube_depth/2 + 1.5,1.5]) cylinder(3,d=3,$fn=180,true);
-    rotate([0,90,0]) translate([-4, +cube_depth/2 - 1.5,1.5]) cylinder(3,d=3,$fn=180,true);
+    rotate([0,90,0]) translate([-4, -cube_depth/2 + 1.5,1.5]) cylinder(3,d=2.8,$fn=180,true);
+    rotate([0,90,0]) translate([-4, +cube_depth/2 - 1.5,1.5]) cylinder(3,d=2.8,$fn=180,true);
     translate([3,0,-0.5]) cube([3,cube_depth-10,2],true);
 }
 
@@ -81,7 +81,7 @@ module MolexMountHolder(pins_per_row=5, rows=2) {
     cube_width = molex_width + 2;
     cube_depth = depth + 3;
 
-    panel_hook_depth = molex_panel_hook_depth();
+    panel_hook_depth = molex_panel_hook_depth(rows);
     difference() {
         cube([cube_width,cube_depth,3],true);
         width_with_hooks = molex_width_with_hooks(pins_per_row);
@@ -121,6 +121,6 @@ module mirrored() {
 // translate([21,-30,0]) mirrored();
 // translate([0,-60,0]) mirrored();
 
-// MolexBottomMount(pins_per_row=12, rows=2, height_to_bottom=20);
+// MolexBottomMount(pins_per_row=12, rows=2, height_to_bottom=0);
 // translate([-40,0,0]) MolexMountHolder(pins_per_row=1, rows=2);
 MolexMountHolder(pins_per_row=12, rows=2);
