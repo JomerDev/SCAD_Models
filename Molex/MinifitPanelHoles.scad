@@ -20,7 +20,7 @@ module minifit_panel_hole(pins_per_row=5, rows=2, depth=2) {
     hook_width = 4;
     hook_height = height + 1.6;
 
-    translate([-(height/2),-(width/2),-(depth/2)]) cube([height,width,depth],false);
+    #translate([-(height/2),-(width/2),-(depth/2)]) cube([height,width,depth],false);
     translate([-(panel_hook_depth/2),-(panel_hook_width/2),-(depth/2)]) cube([panel_hook_depth,panel_hook_width,depth],false);
     translate([-(height/2),-(hook_width/2),-(depth/2)]) cube([hook_height,hook_width,depth],false);
 }

@@ -80,6 +80,7 @@ module MolexMountHolder(pins_per_row=5, rows=2) {
 
     cube_width = molex_width + 2;
     cube_depth = depth + 3;
+    echo (cube_depth);
 
     panel_hook_depth = molex_panel_hook_depth(rows);
     difference() {
@@ -123,4 +124,5 @@ module mirrored() {
 
 // MolexBottomMount(pins_per_row=12, rows=2, height_to_bottom=0);
 // translate([-40,0,0]) MolexMountHolder(pins_per_row=1, rows=2);
-MolexMountHolder(pins_per_row=12, rows=2);
+MolexMountHolder(pins_per_row=8, rows=2);
+// cube([20,20,20]);
