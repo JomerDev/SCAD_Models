@@ -34,6 +34,8 @@ difference() {
 
     translate([0,15.8,-2.5]) rotate([-30,0,0]) cylinder(5, d=1,$fn=180);
     rotate([0,0,180]) translate([0,15.8,-2.5]) rotate([-30,0,0]) cylinder(5, d=1,$fn=180);
+
+    translate([0,0,-2.5]) cylinder(5, d=1,$fn=180);
 }
 
 translate([4,-14,1.45]) rotate([0,90,0]) cyl(5, d=2.5, chamfer=0.75, $fn=180);
