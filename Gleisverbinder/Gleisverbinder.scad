@@ -20,18 +20,25 @@ difference() {
     union() {
         cube([5,30,2.1],true);
         translate([0,14,1.45]) cube([5,2,5], true);
-        translate([0,11.5,0.5]) cube([5,4,3], true);
+        translate([0,12.5,0.5]) cube([5,4,3], true);
         rotate([0,0,180]) translate([0,14,1.45]) cube([5,2,5], true);
-        rotate([0,0,180]) translate([0,11.5,0.5]) cube([5,4,3], true);
+        rotate([0,0,180]) translate([0,12.5,0.5]) cube([5,4,3], true);
         translate([-2.5,11,1.95]) triangle(5,2,2);
         translate([-2.5,15,1.95+2]) rotate([-90,0,0]) triangle(5,5,5);
         rotate([0,0,180]) translate([-2.5,11,1.95]) triangle(5,2,2);
         rotate([0,0,180]) translate([-2.5,15,1.95+2]) rotate([-90,0,0]) triangle(5,5,5);
     }
     translate([-2.5,14,1.45]) rotate([0,90,0]) cylinder(5, d=3,$fn=180);
+    translate([0,19.5,-0.55]) cube([5,1,1], true);
+    translate([0,-19.5,-0.55]) cube([5,1,1], true);
+
+    translate([0,15.8,-2.5]) rotate([-30,0,0]) cylinder(5, d=1,$fn=180);
+    rotate([0,0,180]) translate([0,15.8,-2.5]) rotate([-30,0,0]) cylinder(5, d=1,$fn=180);
 }
 
-translate([2.5,-14,1.45]) rotate([0,90,0]) cyl(5, d=3, chamfer=0.75, $fn=180);
+translate([4,-14,1.45]) rotate([0,90,0]) cyl(5, d=2.5, chamfer=0.75, $fn=180);
 
-translate([0,16.5/2,1.3]) schienenlasche();
-translate([0,-16.5/2,1.3]) schienenlasche();
+translate([0,16.5/2 + 0.65,1.3]) schienenlasche();
+translate([0,-16.5/2 - 0.65,1.3]) schienenlasche();
+translate([-2.5,5.30,1]) triangle(5,2,1);
+rotate([0,0,180]) translate([-2.5,5.3,1]) triangle(5,2,1);
