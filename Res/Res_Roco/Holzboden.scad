@@ -9,18 +9,18 @@ module haken_einzel() {
 }
 
 module haken_eine_seite() {
-    haken_single();
-    translate([0, 27 + 1.2, 0]) haken_single();
-    translate([0, 27 + 1.2*2 + 20.8, 0]) haken_single();
-    translate([0, 27 + 1.2*3 + 20.8 + 23.7, 0]) haken_single();
-    translate([0, 27 + 1.2*4 + 20.8 + 23.7 + 4.4, 0]) haken_single();
-    translate([0, 27 + 1.2*5 + 20.8 + 23.7 + 4.4 + 22, 0]) haken_single();
+    haken_einzel();
+    translate([0, 27 + 1.2, 0]) haken_einzel();
+    translate([0, 27 + 1.2*2 + 20.8, 0]) haken_einzel();
+    translate([0, 27 + 1.2*3 + 20.8 + 23.7, 0]) haken_einzel();
+    translate([0, 27 + 1.2*4 + 20.8 + 23.7 + 4.4, 0]) haken_einzel();
+    translate([0, 27 + 1.2*5 + 20.8 + 23.7 + 4.4 + 22, 0]) haken_einzel();
 
-    translate([0, -27 - 1.2, 0]) haken_single();
-    translate([0, -27 - 1.2*2 - 20.8, 0]) haken_single();
-    translate([0, -27 - 1.2*3 - 20.8 - 23.7, 0]) haken_single();
-    translate([0, -27 - 1.2*4 - 20.8 - 23.7 - 4.4, 0]) haken_single();
-    translate([0, -27 - 1.2*5 - 20.8 - 23.7 - 4.4 - 22, 0]) haken_single();
+    translate([0, -27 - 1.2, 0]) haken_einzel();
+    translate([0, -27 - 1.2*2 - 20.8, 0]) haken_einzel();
+    translate([0, -27 - 1.2*3 - 20.8 - 23.7, 0]) haken_einzel();
+    translate([0, -27 - 1.2*4 - 20.8 - 23.7 - 4.4, 0]) haken_einzel();
+    translate([0, -27 - 1.2*5 - 20.8 - 23.7 - 4.4 - 22, 0]) haken_einzel();
 }
 
 module boden_ausschnitt_eine_seite( floor_length ) {
@@ -60,3 +60,5 @@ module holzboden() {
     haken_eine_seite();
     mirror([1,0,0]) haken_eine_seite();
 }
+
+holzboden();

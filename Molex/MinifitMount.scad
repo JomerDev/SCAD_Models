@@ -121,6 +121,6 @@ module mirrored() {
 // translate([21,-30,0]) mirrored();
 // translate([0,-60,0]) mirrored();
 
-// MolexBottomMount(pins_per_row=12, rows=2, height_to_bottom=20);
+MolexBottomMount(pins_per_row=12, rows=2, height_to_bottom=12);
 // translate([-40,0,0]) MolexMountHolder(pins_per_row=1, rows=2);
-MolexMountHolder(pins_per_row=12, rows=2);
+// MolexMountHolder(pins_per_row=12, rows=2);
