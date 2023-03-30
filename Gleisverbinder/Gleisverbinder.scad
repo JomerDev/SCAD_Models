@@ -32,8 +32,8 @@ difference() {
     translate([0,19.5,-0.55]) cube([5,1,1], true);
     translate([0,-19.5,-0.55]) cube([5,1,1], true);
 
-    translate([0,15.8,-2.5]) rotate([-30,0,0]) cylinder(5, d=1,$fn=180);
-    rotate([0,0,180]) translate([0,15.8,-2.5]) rotate([-30,0,0]) cylinder(5, d=1,$fn=180);
+    translate([0,15.8,-2.5]) rotate([-30,0,0]) cylinder(5, d=1.3,$fn=180);
+    rotate([0,0,180]) translate([0,15.8,-2.5]) rotate([-30,0,0]) cylinder(5, d=1.3,$fn=180);
 
     translate([0,0,-2.5]) cylinder(5, d=1,$fn=180);
 }
